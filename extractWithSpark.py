@@ -29,11 +29,11 @@ dataSchema = StructType([StructField('startTime', StringType(), True),
                          StructField('page_cache_usage', FloatType(), True),
                          StructField('mean_diskIO_time', FloatType(), True),
                          StructField('mean_local_disk_space', FloatType(), True)])
-listFileName=[]
+FileNameARR=[]
 
 for num in range(175,271):
     file_name = "JobMaxTaskpart-00"+str(num).zfill(3)+"-of-00500.csv"
-    listFileName.append(file_name)
+    FileNameARR.append(file_name)
     df = (
         sql_context.read
         .format('com.databricks.spark.csv')
@@ -44,6 +44,6 @@ for num in range(175,271):
    
     TimeDf = sql_context.sql("SELECT min(startTime),max(endTime) from dataFrame")
    
-    TimeDf.toPandas().to_csv('thangbk2209/minMaxTopJobId/Time%s'%(file_name), index=False, header=None)
-print listFileName
+    TimeDf.toPandas().to_csv('thangbk2209/sparkvspython/Data/sparkData/Time%s'%(file_name), index=False, header=None)
+print FileNameARR
 sc.stop()
