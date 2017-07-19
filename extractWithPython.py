@@ -3,14 +3,11 @@ import numpy as np
 import os
 from pandas import read_csv
 # file_path = '/mnt/volume/ggcluster/spark-2.1.1-bin-hadoop2.7/thangbk2209/results/out.csv'
-folder_path = '/mnt/volume/ggcluster/spark-2.1.1-bin-hadoop2.7/thangbk2209/TopJobId/'
-# folder_path ='/mnt/volume/ggcluster/clusterdata-2011-2/task_usage/'
+folder_path ='/mnt/volume/ggcluster/clusterdata-2011-2/task_usage/'
 # minTime = data[0][0]
 list_file_name = []
 list_max_time = []
-
-for num in range(175,271):
-    file_name = "JobMaxTaskpart-00"+str(num).zfill(3)+"-of-00500.csv"
+for file_name in os.listdir(folder_path):
 	list_file_name.append(file_name)
 	print len(list_file_name)
 	df = read_csv('%s%s'%(folder_path,file_name), header=None,index_col=False)
@@ -20,6 +17,8 @@ for num in range(175,271):
 		if(data[i][1] > maxTime):
 			maxTime = data[i][1]
 	list_max_time.append(maxTime)
+	if(len(list_file_name) == 100):
+		break
 print "List file name: "
 print list_file_name
 print "List max time: "
