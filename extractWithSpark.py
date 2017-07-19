@@ -9,8 +9,8 @@ import os
 sc = SparkContext(appName="Task_usage")
 sql_context = SQLContext(sc)
 
-# folder_path ='/mnt/volume/ggcluster/clusterdata-2011-2/task_usage/'
-file_path = '/mnt/volume/ggcluster/spark-2.1.1-bin-hadoop2.7/thangbk2209/results/out.csv'
+folder_path ='/mnt/volume/ggcluster/clusterdata-2011-2/task_usage/'
+# file_path = '/mnt/volume/ggcluster/spark-2.1.1-bin-hadoop2.7/thangbk2209/results/out.csv'
 
 dataSchema = StructType([StructField('startTime', LongType(), True),
                          StructField('endTime', LongType(), True),
@@ -36,31 +36,25 @@ dataSchema = StructType([StructField('startTime', LongType(), True),
                          StructField('agg_type', FloatType(), True),
                          StructField('sampled_cpu_usage', FloatType(), True)])
 
-minTime = 2503200000000
-
-extraTime = 10000000
+list_file_name=[]
+list_max_time=[]
 # 2505600000000
-
-
-df = (
-    sql_context.read
-    .format('com.databricks.spark.csv')
-    .schema(dataSchema)
-    .load("%s"%(file_path))
-)
-df.createOrReplaceTempView("dataFrame")
-maxEnd = sql_context.sql("SELECT max(endTime) as maxEndTime from dataFrame").rdd.map(lambda r: r.maxEndTime).collect()
-# minStart = sql_context.sql("SELECT min(startTime) as minStartTime from dataFrame").rdd.map(lambda r: r.minStartTime).collect()
-maxTime = int(maxEnd[0])
-# minTime = int(minStart[0])
-print maxTime
-
-# print a
-# # df.printSchema()
-for time_stamp in range(minTime,maxTime,extraTime ):
-    sumCPUUsage = sql_context.sql("SELECT * from dataFrame where %s >= startTime and %s < endTime"%(time_stamp,time_stamp))
-    # sumCPUUsage = sql_context.sql("SELECT startTime/1000000, endTime/1000000, JobId, taskIndex, machineId, meanCPUUsage, CMU, AssignMem, unmapped_cache_usage, page_cache_usage, max_mem_usage, mean_diskIO_time,  mean_local_disk_space, max_cpu_usage, max_disk_io_time, cpi ,mai, sampling_portion, agg_type, sampled_cpu_usage from dataFrame")
-    schema_df = ["startTime","numberOfJob"]
-    sumCPUUsage.toPandas().to_csv('thangbk2209/sparkvspython/Data/sparkData/%s.csv'%(time_stamp), index=False, header=None)
-# sumCPUUsage.write.save("results/test.csv", format="csv", columns=schema_df)
+for file_name in os.listdir(folder_path):
+    list_file_name.append(file_name)
+    df = (
+        sql_context.read
+        .format('com.databricks.spark.csv')
+        .schema(dataSchema)
+        .load("%s%s"%(folder_path,file_name))
+    )
+    df.createOrReplaceTempView("dataFrame")
+    maxEnd = sql_context.sql("SELECT max(endTime) as maxEndTime from dataFrame").rdd.map(lambda r: r.maxEndTime).collect()
+    # minStart = sql_context.sql("SELECT min(startTime) as minStartTime from dataFrame").rdd.map(lambda r: r.minStartTime).collect()
+    maxTime = int(maxEnd[0])
+    list_max_time.append(maxTime)
+    # minTime = int(minStart[0])
+print "List file name: "
+print list_file_name
+print "List max time: "
+print list_max_time
 sc.stop()
