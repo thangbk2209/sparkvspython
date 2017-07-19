@@ -26,4 +26,4 @@ for time_stamp in range(int(minTime),int(maxTime),extraTime):
 		if(data[i][0]<=time_stamp and data[i][1]>time_stamp):
 			timeStampData.append(data[i])		
 	newDf = pd.DataFrame(timeStampData)
-	newDf.to_csv('thangbk2209/sparkvspython/Data/pythonData/%s.csv'%(time_stamp))
+	newDf.to_csv('Data/pythonData/%s.csv'%(time_stamp))
