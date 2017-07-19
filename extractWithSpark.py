@@ -9,7 +9,7 @@ import os
 sc = SparkContext(appName="Task_usage")
 sql_context = SQLContext(sc)
 
-folder_path ='/mnt/volume/ggcluster/clusterdata-2011-2/task_usage/'
+folder_path ='/mnt/volume/ggcluster/spark-2.1.1-bin-hadoop2.7/thangbk2209/TopJobId/'
 # file_path = '/mnt/volume/ggcluster/spark-2.1.1-bin-hadoop2.7/thangbk2209/results/out.csv'
 
 dataSchema = StructType([StructField('startTime', LongType(), True),
