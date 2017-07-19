@@ -2,9 +2,7 @@ import pandas as pd
 import numpy as np
 import os
 from pandas import read_csv
-# file_path = '/mnt/volume/ggcluster/spark-2.1.1-bin-hadoop2.7/thangbk2209/results/out.csv'
 folder_path ='/mnt/volume/ggcluster/spark-2.1.1-bin-hadoop2.7/thangbk2209/TopJobId/'
-# minTime = data[0][0]
 list_file_name = []
 list_max_time = []
 for num in range(175,271):
