@@ -37,9 +37,9 @@ dataSchema = StructType([StructField('startTime', LongType(), True),
                          StructField('sampled_cpu_usage', FloatType(), True)])
 
 list_file_name=[]
-list_max_time=[]
 # 2505600000000
-for file_name in os.listdir(folder_path):
+for num in range(175,271):
+    file_name = "JobMaxTaskpart-00"+str(num).zfill(3)+"-of-00500.csv"
     list_file_name.append(file_name)
     print len(list_file_name)
     df = (
@@ -49,15 +49,8 @@ for file_name in os.listdir(folder_path):
         .load("%s%s"%(folder_path,file_name))
     )
     df.createOrReplaceTempView("dataFrame")
-    maxEnd = sql_context.sql("SELECT max(endTime) as maxEndTime from dataFrame")
-    # minStart = sql_context.sql("SELECT min(startTime) as minStartTime from dataFrame").rdd.map(lambda r: r.minStartTime).collect()
-    # maxTime = int(maxEnd[0])
-    # list_max_time.append(maxTime)
-    # minTime = int(minStart[0])
+    maxEnd = sql_context.sql("SELECT max(endTime) from dataFrame")
     maxEnd.toPandas().to_csv('thangbk2209/sparkvspython/Data/sparkData/%s'%(file_name), index=False, header=None)
-    list_max_time.append('1')
 print "List file name: "
 print list_file_name
-print "List max time: "
-print list_max_time
 sc.stop()

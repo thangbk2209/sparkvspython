@@ -7,10 +7,10 @@ folder_path ='/mnt/volume/ggcluster/spark-2.1.1-bin-hadoop2.7/thangbk2209/TopJob
 # minTime = data[0][0]
 list_file_name = []
 list_max_time = []
-for file_name in os.listdir(folder_path):
+for num in range(175,271):
+    file_name = "JobMaxTaskpart-00"+str(num).zfill(3)+"-of-00500.csv"
 	list_file_name.append(file_name)
 	print len(list_file_name)
-	try:
 		df = read_csv('%s%s'%(folder_path,file_name), header=None,index_col=False)
 		data = df.values
 		maxTime = data[0][1]
@@ -18,8 +18,6 @@ for file_name in os.listdir(folder_path):
 			if(data[i][1] > maxTime):
 				maxTime = data[i][1]
 		list_max_time.append(maxTime)
-	except pd.io.common.EmptyDataError:
-		list_max_time.append(0)
 print "List file name: "
 print list_file_name
 print "List max time: "
