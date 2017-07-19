@@ -49,11 +49,13 @@ for file_name in os.listdir(folder_path):
         .load("%s%s"%(folder_path,file_name))
     )
     df.createOrReplaceTempView("dataFrame")
-    maxEnd = sql_context.sql("SELECT max(endTime) as maxEndTime from dataFrame").rdd.map(lambda r: r.maxEndTime).collect()
+    maxEnd = sql_context.sql("SELECT max(endTime) as maxEndTime from dataFrame")
     # minStart = sql_context.sql("SELECT min(startTime) as minStartTime from dataFrame").rdd.map(lambda r: r.minStartTime).collect()
-    maxTime = int(maxEnd[0])
-    list_max_time.append(maxTime)
+    # maxTime = int(maxEnd[0])
+    # list_max_time.append(maxTime)
     # minTime = int(minStart[0])
+    maxEnd.toPandas().to_csv('thangbk2209/sparkvspython/Data/sparkData/%s'%(file_name), index=False, header=None)
+    list_max_time.append('1')
 print "List file name: "
 print list_file_name
 print "List max time: "
