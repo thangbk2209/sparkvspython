@@ -17,12 +17,13 @@ for file_name in os.listdir(folder_path):
 		if(data[i][1] > maxTime):
 			maxTime = data[i][1]
 	list_max_time.append(maxTime)
-	if(len(list_file_name) == 100):
+	if(len(list_file_name) == 20):
 		break
-print "List file name: "
-print list_file_name
+
 print "List max time: "
 print list_max_time
+print "List file name: "
+print list_file_name
 	# if(data[i][0] < minTime):
 		# minTime = data[i][0]
 # for time_stamp in range(int(minTime),int(maxTime),extraTime):
