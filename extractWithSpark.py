@@ -41,7 +41,7 @@ list_max_time=[]
 # 2505600000000
 for file_name in os.listdir(folder_path):
     list_file_name.append(file_name)
-    print len(list_file_name)
+    # print len(list_file_name)
     df = (
         sql_context.read
         .format('com.databricks.spark.csv')
@@ -53,7 +53,7 @@ for file_name in os.listdir(folder_path):
     # minStart = sql_context.sql("SELECT min(startTime) as minStartTime from dataFrame").rdd.map(lambda r: r.minStartTime).collect()
     maxTime = int(maxEnd[0])
     list_max_time.append(maxTime)
-    if(len(list_file_name)==10):
+    if(len(list_file_name)==20):
         break
     # minTime = int(minStart[0])
 print "List max time: "
