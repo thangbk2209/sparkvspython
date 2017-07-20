@@ -9,7 +9,7 @@ list_file_name = []
 list_max_time = []
 for file_name in os.listdir(folder_path):
 	list_file_name.append(file_name)
-	# print len(list_file_name)
+	print len(list_file_name)
 	df = read_csv('%s%s'%(folder_path,file_name), header=None,index_col=False)
 	data = df.values
 	maxTime = data[0][1]

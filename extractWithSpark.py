@@ -41,7 +41,7 @@ list_max_time=[]
 # 2505600000000
 for file_name in os.listdir(folder_path):
     list_file_name.append(file_name)
-    # print len(list_file_name)
+    print len(list_file_name)
     df = (
         sql_context.read
         .format('com.databricks.spark.csv')
