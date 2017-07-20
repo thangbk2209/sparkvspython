@@ -17,7 +17,7 @@ for file_name in os.listdir(folder_path):
 		if(data[i][1] > maxTime):
 			maxTime = data[i][1]
 	list_max_time.append(maxTime)
-	if(len(list_file_name) == 50):
+	if(len(list_file_name) == 10):
 		break
 
 print "List max time: "

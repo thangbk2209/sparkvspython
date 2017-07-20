@@ -53,7 +53,7 @@ for file_name in os.listdir(folder_path):
     # minStart = sql_context.sql("SELECT min(startTime) as minStartTime from dataFrame").rdd.map(lambda r: r.minStartTime).collect()
     maxTime = int(maxEnd[0])
     list_max_time.append(maxTime)
-    if(len(list_file_name)==50):
+    if(len(list_file_name)==10):
         break
     # minTime = int(minStart[0])
 print "List max time: "
